@@ -15,7 +15,7 @@ This repository currently establishes the project's public scope, architecture, 
 
 The complete implementation is not yet published. Grant-funded public code, tests, schemas, examples, and documentation will be added through the planned development milestones after private material has been removed and the public components have been reviewed, tested, commented, and documented.
 
-An internal Solana registry/index contract has been developed and will be evaluated alongside the simpler signed-transaction approach before the final public implementation is selected.
+An initial Solana registry/index contract has been developed. The final Solana design is a lightweight versioned registry smart contract. Approved publishers will invoke the registry through signed transactions. The public implementation, tests, examples, and usage documentation will be released through the planned milestones after private material has been removed and the public components have been reviewed, tested, commented, and documented.
 
 ## Project Goals
 
@@ -57,12 +57,7 @@ Cryptographic hashes, checksums, and content identifiers are generated for integ
 
 ### 4. Solana Manifest Verification
 
-The planned Solana implementation has two possible paths:
-
-- **Phase 1:** A signed publisher transaction records the manifest hash, version, timestamp, publisher reference, and approved retrieval reference.
-- **Phase 2:** A lightweight versioned registry/index may be used when it provides a clearer and more maintainable lookup workflow.
-
-The final approach will be selected based on security, maintainability, cost, and developer usability.
+An approved publisher signs a transaction that invokes the lightweight versioned registry program. The program records the manifest hash, version, publisher reference, approved retrieval reference, time reference, and previous-version relationship. A verifier recalculates the manifest hash, reads the registry entry and associated transaction signature, checks the publisher and version fields, and returns a structured result. Raw environmental observations remain off-chain.
 
 ### 5. Filecoin Storage and Retrieval
 
@@ -148,7 +143,7 @@ The public toolkit will begin with an already approved package or a generic data
 
 ### Versioning and Developer Release
 
-- Finalize the signed-transaction or registry/index approach
+- Finalize and publish the lightweight versioned registry program and signed client workflow
 - Publish version-lineage support
 - Add command-line and reference-library examples
 - Complete documentation, dependency, secret, and repository-history reviews
